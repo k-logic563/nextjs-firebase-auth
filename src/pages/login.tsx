@@ -25,27 +25,27 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={logIn}>
+    <div className="wrapper">
+      <form className='auth' onSubmit={logIn}>
         <div>
-          <label htmlFor="email">Email: </label>
+          <label htmlFor="email" className='auth-label'>Email: </label>
           <input
             id='email'
-            className='py-1 px-2 auth-input'
+            className='auth-input'
             type="email"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div>
-          <label htmlFor="password">Password: </label>
+        <div className='mt-2'>
+          <label htmlFor="password" className='auth-label'>Password: </label>
           <input
             id='password'
-            className='py-1 px-2 auth-input'
+            className='auth-input'
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className='py-1 px-3 rounded auth-btn' type="submit">
+        <button className='auth-btn' type="submit">
           Login
         </button>
       </form>
