@@ -1,3 +1,12 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
+.auth-btn {
+  @apply text-white bg-blue-400 border-blue-600 border-solid;
+}
+.auth-link {
+  @apply underline text-blue-800;
+}
+.auth-input {
+  @apply border border-gray-400 border-solid rounded;
+}
 @import 'tailwindcss/utilities';

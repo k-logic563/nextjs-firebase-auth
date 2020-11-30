@@ -9,13 +9,12 @@ type AuthContextProps = {
 
 const AuthContext = createContext<AuthContextProps>({ currentUser: undefined });
 
-const AuthProvider: FC = ( props: any) => {
+const AuthProvider: FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(
     undefined
   )
 
   useEffect(() => {
-    console.log(process.env.FIREBASE_KEY)
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user)
     })
@@ -23,7 +22,7 @@ const AuthProvider: FC = ( props: any) => {
 
   return (
     <AuthContext.Provider value={{ currentUser }}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   )
 }

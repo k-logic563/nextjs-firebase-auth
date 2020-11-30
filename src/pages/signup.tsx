@@ -5,7 +5,7 @@ import Link from "next/link"
 import {auth} from '../utils/firebase'
 import { AuthContext } from '../auth/AuthProvider'
 
-const SignUp: FC = (props: any) => {
+const SignUp: FC = () => {
   const router = useRouter()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
@@ -32,6 +32,7 @@ const SignUp: FC = (props: any) => {
         <label htmlFor="email">Email: </label>
         <input
           id='email'
+          className='py-1 px-2 auth-input'
           type="email"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -40,15 +41,19 @@ const SignUp: FC = (props: any) => {
         <label htmlFor="password">Password: </label>
         <input
           id='password'
+          className='py-1 px-2 auth-input'
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button type="submit">
+      <button
+        className='py-1 px-3 rounded auth-btn'
+        type="submit"
+      >
         SignUp
       </button>
       <Link href='/login'>
-        Login
+        <a className='auth-link'>Login</a>
       </Link>
     </form>
   )

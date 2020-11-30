@@ -3,7 +3,7 @@ import Link from "next/link"
 import {useRouter} from 'next/router'
 import {auth} from "../utils/firebase";
 
-const Login = (props: any) => {
+const Login = () => {
   const router = useRouter()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
@@ -31,6 +31,7 @@ const Login = (props: any) => {
           <label htmlFor="email">Email: </label>
           <input
             id='email'
+            className='py-1 px-2 auth-input'
             type="email"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -39,16 +40,17 @@ const Login = (props: any) => {
           <label htmlFor="password">Password: </label>
           <input
             id='password'
+            className='py-1 px-2 auth-input'
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">
+        <button className='py-1 px-3 rounded auth-btn' type="submit">
           Login
         </button>
       </form>
       <Link href='/signup'>
-        signup
+        <a className='auth-link'>signup</a>
       </Link>
     </div>
   );
