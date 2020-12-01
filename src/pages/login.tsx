@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { auth } from '../utils/firebase'
 
-const Login = () => {
+const Login: FC = () => {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
