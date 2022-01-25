@@ -1,33 +1,27 @@
 import { useEffect, FC, useState } from 'react'
 import { useRouter } from 'next/router'
-import Head from 'next/head'
+import * as fb from 'firebase'
 
-import { auth } from '../utils/firebase'
+import Layout from '@/layout/layout'
+import { auth } from '@/utils/firebase'
 
-const Home: FC = (props: any) => {
-  const router = useRouter()
-  const [currentUser, setCurrentUser] = useState<null | object>(null)
+const Home: FC = () => {
+  const { push } = useRouter()
+  const [currentUser, setCurrentUser] = useState<null | fb.default.User>(null)
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      user ? setCurrentUser(user) : router.push('/login')
+      user ? setCurrentUser(user) : push('/login')
     })
   }, [])
 
-  const logOut = async () => {
-    try {
-      await auth.signOut()
-      router.push('/login')
-    } catch (error) {
-      alert(error.message)
-    }
-  }
-
   return (
-    <div>
-      <pre>{currentUser && JSON.stringify(currentUser, null, 4)}</pre>
-      <button onClick={logOut}>Logout</button>
-    </div>
+    <Layout>
+      <div className="text-center">
+        <p className="text-center text-xl font-bold mb-4">HELLO!!</p>
+        <p>Your Email: {currentUser?.email}</p>
+      </div>
+    </Layout>
   )
 }
 

@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AppProps } from 'next/app'
-import { AuthProvider } from '../auth/AuthProvider'
-import '../styles/index.css'
 
-const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+import { AuthProvider } from '@/auth/AuthProvider'
+
+import '@/styles/global.css';
+import '@/styles/index.css';
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <AuthProvider>
       <Component {...pageProps} />
