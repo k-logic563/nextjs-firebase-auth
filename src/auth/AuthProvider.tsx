@@ -1,16 +1,16 @@
-// @ts-ignore
-import { User } from 'firebase'
-import { FC, createContext, useEffect, useState } from 'react'
-import { auth } from '../utils/firebase'
+import * as fb from 'firebase'
+import React, { createContext, useEffect, useState } from 'react'
+
+import { auth } from '@/utils/firebase'
 
 type AuthContextProps = {
-  currentUser: User | null | undefined
+  currentUser: fb.default.User | null | undefined
 }
 
 const AuthContext = createContext<AuthContextProps>({ currentUser: undefined })
 
-const AuthProvider: FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<User | null | undefined>(
+const AuthProvider: React.FC = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState<fb.default.User | null | undefined>(
     undefined
   )
 
