@@ -1,11 +1,11 @@
-import { useEffect, FC, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import * as fb from 'firebase'
 
 import Layout from '@/layout/layout'
 import { auth } from '@/utils/firebase'
 
-const Home: FC = () => {
+const Home: React.FC = () => {
   const { push } = useRouter()
   const [currentUser, setCurrentUser] = useState<null | fb.default.User>(null)
 
