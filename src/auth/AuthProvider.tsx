@@ -1,7 +1,7 @@
 import * as fb from 'firebase'
 import React, { createContext, useEffect, useState } from 'react'
 
-import { auth } from '@/utils/firebase'
+import * as utils from '@/utils'
 
 type AuthContextProps = {
   currentUser: fb.default.User | null | undefined
@@ -15,7 +15,7 @@ const AuthProvider: React.FC = ({ children }) => {
   )
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    utils.fb.auth.onAuthStateChanged((user) => {
       setCurrentUser(user)
     })
   }, [])

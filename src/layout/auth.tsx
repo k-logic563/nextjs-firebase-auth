@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
-import * as utils from '@/utils'
+import { AuthContext } from '@/auth/AuthProvider'
 
 const Auth: React.FC = ({ children }) => {
   const { push } = useRouter()
+  const { currentUser } = useContext(AuthContext)
 
   useEffect(() => {
-    utils.fb.auth.onAuthStateChanged((user) => {
-      user && push('/')
-    })
-  }, [])
-  
+    currentUser && push('/')
+  }, [currentUser])
+
   return (
     <div className="min-h-screen grid place-items-center">
       <div className="max-w-lg w-11/12">
