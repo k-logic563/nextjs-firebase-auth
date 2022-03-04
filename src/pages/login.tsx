@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import Auth from '@/layout/auth'
-import { auth } from '@/utils/firebase'
+import * as utils from '@/utils'
 
 const Login: React.FC = () => {
   const { push } = useRouter()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      user && push('/')
-    })
-  }, [])
-
-  const logIn = async (e) => {
+  const logIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      await auth.signInWithEmailAndPassword(email, password)
-      push('/')
+      await utils.fb.auth.signInWithEmailAndPassword(email, password)
+      await push('/')
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
@@ -42,6 +36,7 @@ const Login: React.FC = () => {
               className="auth-input"
               type="email"
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
           <div className="mt-2">
@@ -53,6 +48,7 @@ const Login: React.FC = () => {
               className="auth-input"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
           <button className="auth-btn" type="submit">

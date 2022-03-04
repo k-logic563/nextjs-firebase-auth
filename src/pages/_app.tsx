@@ -3,8 +3,8 @@ import { AppProps } from 'next/app'
 
 import { AuthProvider } from '@/auth/AuthProvider'
 
-import '@/styles/global.css';
-import '@/styles/index.css';
+import '@/styles/global.css'
+import '@/styles/index.css'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (

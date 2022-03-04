@@ -16,5 +16,4 @@ const config = {
 if (firebase.apps.length === 0) {
   firebase.initializeApp(config)
 }
-const auth = firebase.auth()
-export { auth }
+export const auth = firebase.auth()

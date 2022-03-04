@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 import Auth from '@/layout/auth'
-import { auth } from '@/utils/firebase'
+import * as utils from '@/utils'
 
 const SignUp: React.FC = () => {
   const router = useRouter()
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      user && router.push('/')
-    })
-  }, [])
-
-  const createUser = async (e) => {
+  const createUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      await auth.createUserWithEmailAndPassword(email, password)
-      router.push('/login')
+      await utils.fb.auth.createUserWithEmailAndPassword(email, password)
+      await router.push('/login')
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
@@ -41,6 +35,7 @@ const SignUp: React.FC = () => {
               id="email"
               className="auth-input"
               type="email"
+              required
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -52,6 +47,7 @@ const SignUp: React.FC = () => {
               id="password"
               className="auth-input"
               type="password"
+              required
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
