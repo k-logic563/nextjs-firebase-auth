@@ -1,4 +1,4 @@
-# auth-firebase-react-template
+# Next.js Firebase-Authentication
 Next.jsとFirebaseを使用した認証テンプレート
 
 ## install
