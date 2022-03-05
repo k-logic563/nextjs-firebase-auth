@@ -1,14 +1,14 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 
-import { auth } from '@/utils/firebase'
+import * as utils from '@/utils'
 
 const Header: React.FC = () => {
   const { push } = useRouter()
   const logOut = async () => {
     try {
-      await auth.signOut()
-      push('/login')
+      await utils.fb.auth.signOut()
+      await push('/login')
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
