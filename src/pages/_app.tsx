@@ -1,7 +1,7 @@
 import React from 'react'
 import { AppProps } from 'next/app'
 
-import { AuthProvider } from '@/auth/AuthProvider'
+import { AuthProvider } from '@/provider/AuthProvider'
 
 import '@/styles/global.css'
 import '@/styles/index.css'

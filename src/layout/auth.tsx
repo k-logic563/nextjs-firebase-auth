@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
-import { AuthContext } from '@/auth/AuthProvider'
+import { AuthContext } from '@/provider/AuthProvider'
 
 const Auth: React.FC = ({ children }) => {
   const { push } = useRouter()
