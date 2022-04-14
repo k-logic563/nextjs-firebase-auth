@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import * as fb from 'firebase'
+import React, { useContext } from 'react'
 
 import Layout from '@/layout/layout'
-import { auth } from '@/utils/firebase'
+
+import { AuthContext, AuthContextProps } from '@/provider/AuthProvider'
 
 const Home: React.FC = () => {
-  const { push } = useRouter()
-  const [currentUser, setCurrentUser] = useState<null | fb.default.User>(null)
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      user ? setCurrentUser(user) : push('/login')
-    })
-  }, [])
+  const { currentUser } = useContext<AuthContextProps>(AuthContext)
 
   return (
     <Layout>
-      <div className="text-center">
+      <div className="container mx-auto">
         <p className="text-center text-xl font-bold mb-4">HELLO!!</p>
-        <p>Your Email: {currentUser?.email}</p>
+        <table className="max-w-md mx-auto border">
+          <tbody>
+            <tr>
+              <th className="text-left py-3 px-4 bg-gray-100 border">ID</th>
+              <td className="py-3 px-4 border">{currentUser?.uid}</td>
+            </tr>
+            <tr>
+              <th className="text-left py-3 px-4 bg-gray-100 border">Email</th>
+              <td className="py-3 px-4 border">{currentUser?.email}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </Layout>
   )

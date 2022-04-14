@@ -1,13 +1,13 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 
-import * as utils from '@/utils'
+import * as api from '@/api'
 
 const Header: React.FC = () => {
   const { push } = useRouter()
-  const logOut = async () => {
+  const handleClickLogOut = async () => {
     try {
-      await utils.fb.auth.signOut()
+      await api.auth.signOut()
       await push('/login')
     } catch (error) {
       if (error instanceof Error) {
@@ -23,7 +23,9 @@ const Header: React.FC = () => {
         <nav>
           <ul>
             <li>
-              <button className="text-white" onClick={logOut}>Logout</button>
+              <button className="text-white" onClick={handleClickLogOut}>
+                Logout
+              </button>
             </li>
           </ul>
         </nav>
@@ -32,4 +34,4 @@ const Header: React.FC = () => {
   )
 }
 
-export default Header;
+export default Header

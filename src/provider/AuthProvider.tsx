@@ -1,30 +1,38 @@
-import * as fb from 'firebase'
+import { onAuthStateChanged, User } from '@firebase/auth'
 import React, { createContext, useEffect, useState } from 'react'
 
-import * as utils from '@/utils'
+import * as api from '@/api'
 
-type AuthContextProps = {
-  currentUser: fb.default.User | null | undefined
+export type AuthContextProps = {
+  isInitialized: boolean
+  currentUser: User | null | undefined
 }
 
-const AuthContext = createContext<AuthContextProps>({ currentUser: undefined })
+type State = {
+  isInitialized: boolean
+  currentUser: User | null | undefined
+}
+
+const initialState = {
+  isInitialized: false,
+  currentUser: undefined,
+}
+
+const AuthContext = createContext<AuthContextProps>({} as State)
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<fb.default.User | null | undefined>(
-    undefined
-  )
+  const [state, setState] = useState<State>(initialState)
 
   useEffect(() => {
-    utils.fb.auth.onAuthStateChanged((user) => {
-      setCurrentUser(user)
-    })
+    const initialize = () => {
+      onAuthStateChanged(api.auth, (user) => {
+        setState({ ...state, currentUser: user, isInitialized: true })
+      })
+    }
+    initialize()
   }, [])
 
-  return (
-    <AuthContext.Provider value={{ currentUser }}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>
 }
 
 export { AuthContext, AuthProvider }

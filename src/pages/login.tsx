@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import Auth from '@/layout/auth'
-import * as utils from '@/utils'
+
+import * as api from '@/api'
 
 const Login: React.FC = () => {
   const { push } = useRouter()
@@ -13,7 +14,7 @@ const Login: React.FC = () => {
   const logIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      await utils.fb.auth.signInWithEmailAndPassword(email, password)
+      await api.signIn(email, password)
       await push('/')
     } catch (error) {
       if (error instanceof Error) {
