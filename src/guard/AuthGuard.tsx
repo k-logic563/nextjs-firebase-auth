@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
-import { useRouter } from 'next/router'
+import React from 'react'
 
 import Login from '@/pages/login'
+import Signup from '@/pages/signup'
 import Loading from '@/components/organisms/Loading'
 import useAuthContext from '@/hooks/useAuthContext'
+import useLocation from '@/hooks/useLocation'
 
 type Props = {
   children: React.ReactNode
@@ -11,13 +12,18 @@ type Props = {
 
 const AuthGuard: React.FC<Props> = ({ children }) => {
   const { currentUser, isInitialized } = useAuthContext()
-  const { pathname } = useRouter()
-  const isSignUpPage = pathname === '/signup'
+  const { pathname } = useLocation()
+  const isSignupPage = pathname === '/signup'
 
+  // サインアップページ
+  if (isSignupPage) return <Signup />
+
+  // ユーザーステータス取得までのラグ
+  // ローディング表示
   if (!isInitialized) return <Loading />
 
-  // ログインしていない && サインアップページ
-  if (!currentUser && !isSignUpPage) return <Login />
+  // 未認証時
+  if (!currentUser) return <Login />
 
   return <>{children}</>
 }
