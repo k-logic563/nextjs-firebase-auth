@@ -15,7 +15,8 @@ const SignUp: React.FC = () => {
     e.preventDefault()
     try {
       await api.signUp(email, password)
-      await router.push('/login')
+      alert('account creating success!!')
+      await router.push('/login?is_signup=true')
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)

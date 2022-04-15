@@ -17,7 +17,7 @@ const AuthGuard: React.FC<Props> = ({ children }) => {
 
   if (!isInitialized) return <Loading />
 
-  // signupページでは処理しない
+  // ログインしていない && サインアップページ
   if (!currentUser && !isSignUpPage) return <Login />
 
   return <>{children}</>
