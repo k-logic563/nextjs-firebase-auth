@@ -2,10 +2,10 @@ import React, { useContext } from 'react'
 
 import Layout from '@/layout/layout'
 
-import { AuthContext, AuthContextProps } from '@/provider/AuthProvider'
+import useAuthContext from '@/hooks/useAuthContext'
 
 const Home: React.FC = () => {
-  const { currentUser } = useContext<AuthContextProps>(AuthContext)
+  const { currentUser } = useAuthContext()
 
   return (
     <Layout>
@@ -14,7 +14,7 @@ const Home: React.FC = () => {
         <table className="max-w-md mx-auto border">
           <tbody>
             <tr>
-              <th className="text-left py-3 px-4 bg-gray-100 border">ID</th>
+              <th className="text-left py-3 px-4 bg-gray-100 border">UID</th>
               <td className="py-3 px-4 border">{currentUser?.uid}</td>
             </tr>
             <tr>

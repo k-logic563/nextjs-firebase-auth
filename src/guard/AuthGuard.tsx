@@ -1,17 +1,16 @@
 import React, { useContext } from 'react'
 import { useRouter } from 'next/router'
 
-import { AuthContext, AuthContextProps } from '@/provider/AuthProvider'
 import Login from '@/pages/login'
 import Loading from '@/components/organisms/Loading'
+import useAuthContext from '@/hooks/useAuthContext'
 
 type Props = {
   children: React.ReactNode
 }
 
 const AuthGuard: React.FC<Props> = ({ children }) => {
-  const { currentUser, isInitialized } =
-    useContext<AuthContextProps>(AuthContext)
+  const { currentUser, isInitialized } = useAuthContext()
   const { pathname } = useRouter()
   const isSignUpPage = pathname === '/signup'
 
