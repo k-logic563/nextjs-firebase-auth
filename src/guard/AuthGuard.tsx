@@ -15,12 +15,11 @@ const AuthGuard: React.FC<Props> = ({ children }) => {
   const { pathname } = useLocation()
   const isSignupPage = pathname === '/signup'
 
+  // ユーザーステータス取得までのローディング
+  if (!isInitialized) return <Loading />
+
   // サインアップページ
   if (isSignupPage) return <Signup />
-
-  // ユーザーステータス取得までのラグ
-  // ローディング表示
-  if (!isInitialized) return <Loading />
 
   // 未認証時
   if (!currentUser) return <Login />
