@@ -24,12 +24,12 @@ const AuthProvider: React.FC = ({ children }) => {
   const [state, setState] = useState<State>(initialState)
 
   useEffect(() => {
-    const initialize = () => {
-      onAuthStateChanged(api.auth, (user) => {
-        setState({ ...state, currentUser: user, isInitialized: true })
-      })
+    const unsubscribed = onAuthStateChanged(api.auth, (user) => {
+      setState({ ...state, currentUser: user, isInitialized: true })
+    })
+    return () => {
+      unsubscribed()
     }
-    initialize()
   }, [])
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>
