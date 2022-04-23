@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import Layout from '@/layout/layout'
 
 import useAuthContext from '@/hooks/useAuthContext'
 
 const Home: React.FC = () => {
-  const { currentUser } = useAuthContext()
+  const { state } = useAuthContext()
 
   return (
     <Layout>
@@ -15,11 +15,11 @@ const Home: React.FC = () => {
           <tbody>
             <tr>
               <th className="text-left py-3 px-4 bg-gray-100 border">UID</th>
-              <td className="py-3 px-4 border">{currentUser?.uid}</td>
+              <td className="py-3 px-4 border">{state.currentUser?.uid}</td>
             </tr>
             <tr>
               <th className="text-left py-3 px-4 bg-gray-100 border">Email</th>
-              <td className="py-3 px-4 border">{currentUser?.email}</td>
+              <td className="py-3 px-4 border">{state.currentUser?.email}</td>
             </tr>
           </tbody>
         </table>

@@ -5,28 +5,36 @@ import Link from 'next/link'
 import Auth from '@/layout/auth'
 
 import * as api from '@/api'
+import * as types from '@/types'
+import ErrorText from '@/components/molecules/ErrorText'
 
 const SignUp: React.FC = () => {
   const router = useRouter()
+  const [error, setError] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const createUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     try {
       await api.signUp(email, password)
-      alert('account creating success!!')
-      await router.push('/login?is_signup=true')
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message)
+      alert('アカウントを作成しました。\nログインしてください。')
+      await router.push('/login')
+    } catch (e: unknown) {
+      const error = e as types.FBError
+      let message = '登録できませんでした'
+      if (error.code === 'auth/email-already-in-use') {
+        message = '既に使用されているメールアドレスです'
       }
+      setError(message)
     }
   }
 
   return (
     <Auth>
       <section>
+        <div className="mb-3">{error && <ErrorText text={error} />}</div>
         <h1 className="font-bold text-xl mb-6">サインアップ</h1>
         <form className="auth" onSubmit={createUser}>
           <div>
@@ -39,6 +47,7 @@ const SignUp: React.FC = () => {
               type="email"
               required
               onChange={(e) => setEmail(e.target.value)}
+              data-cy="email"
             />
           </div>
           <div className="mt-2">
@@ -51,9 +60,10 @@ const SignUp: React.FC = () => {
               type="password"
               required
               onChange={(e) => setPassword(e.target.value)}
+              data-cy="password"
             />
           </div>
-          <button className="auth-btn" type="submit">
+          <button className="auth-btn" type="submit" data-cy="submit">
             サインアップ
           </button>
         </form>
