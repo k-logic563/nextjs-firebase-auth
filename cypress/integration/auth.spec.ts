@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 
 import { signIn, signUp, deleteUser, auth } from '../support/firebase'
 
-describe('Authentication test', () => {
+describe('認証テスト', () => {
   const email = faker.internet.email()
   const password = faker.internet.password()
 
@@ -21,7 +21,7 @@ describe('Authentication test', () => {
     deleteUser(auth.currentUser!)
   })
 
-  it('Login', () => {
+  it('ログインができる', () => {
     cy.visit('/login')
     cy.get('[data-cy=email]').type(email)
     cy.get('[data-cy=password]').type(password)
@@ -29,7 +29,7 @@ describe('Authentication test', () => {
     cy.contains(email.toLowerCase())
   })
 
-  it('Signup and Login', () => {
+  it('サインアップし、ログインができる', () => {
     cy.visit('/signup')
     cy.get('[data-cy=email]').type(email)
     cy.get('[data-cy=password]').type(password)
@@ -41,7 +41,7 @@ describe('Authentication test', () => {
     cy.contains(email.toLowerCase())
   })
 
-  it('Login Error', () => {
+  it('ログインエラー', () => {
     cy.visit('/login')
     cy.get('[data-cy=email]').type(email)
     cy.get('[data-cy=password]').type('1234')
@@ -54,7 +54,7 @@ describe('Authentication test', () => {
     cy.contains('ログイン情報が違います')
   })
 
-  it('Signup Error', () => {
+  it('サインアップエラー', () => {
     cy.visit('/signup')
     cy.get('[data-cy=email]').type(email)
     cy.get('[data-cy=password]').type(password)
