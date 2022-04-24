@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-import { signIn, signUp, deleteUser, auth } from '../support/firebase'
+import { signIn, signUp, deleteUser, auth } from '../../support/firebase'
 
 describe('認証テスト', () => {
   const email = faker.internet.email()
