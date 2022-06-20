@@ -1,21 +1,16 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useRouter } from 'next/router'
 
 import * as api from '@/api'
-import { AuthContext } from '@/provider/AuthProvider'
 
 const Header: React.FC = () => {
-  const { dispatch } = useContext(AuthContext)
   const { push } = useRouter()
   const handleClickLogOut = async () => {
     try {
       await api.auth.signOut()
-      dispatch({ type: 'LOGOUT' })
-      await push('/login')
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message)
-      }
+      await push('/signin')
+    } catch (e) {
+      console.log(e)
     }
   }
 

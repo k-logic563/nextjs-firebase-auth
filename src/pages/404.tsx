@@ -1,11 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
 
-import Layout from '@/layout/layout'
+import MainLayout from '@/components/layout/MainLayout'
 
 const ErrorPage: React.FC = () => {
   return (
-    <Layout>
+    <MainLayout>
       <div className="container mx-auto text-center">
         <h1 className="mb-8 text-4xl font-bold tracking-wider">404 Page</h1>
         <Link href="/">
@@ -14,7 +14,7 @@ const ErrorPage: React.FC = () => {
           </a>
         </Link>
       </div>
-    </Layout>
+    </MainLayout>
   )
 }
 
