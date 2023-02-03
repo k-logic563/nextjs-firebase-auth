@@ -1,7 +1,7 @@
 {
   "name": "react-auth",
   "version": "1.0.0",
-  "private": true,
+  "license": "UNLICENSED",
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
