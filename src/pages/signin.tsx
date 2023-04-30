@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import type { FC } from 'react'
 
 import { login } from '@/features/auth'
@@ -8,6 +8,23 @@ const Signin: FC = () => {
   const { push } = useRouter()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string>('')
+
+  const displayErrorMessage = useMemo(() => {
+    let message = ''
+
+    if (errorMessage.includes('user-not-found')) {
+      message = 'ユーザーが見つかりませんでした。'
+    } else if (errorMessage.includes('wrong-password')) {
+      message = 'パスワードが間違っています。'
+    } else if (errorMessage.includes('too-many-requests')) {
+      message = 'アカウントがロックされました。しばらくしてからお試しください。'
+    } else {
+      message = errorMessage
+    }
+
+    return message
+  }, [errorMessage])
 
   const signin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -19,47 +36,55 @@ const Signin: FC = () => {
       })
       await push('/')
     } catch (e) {
-      alert(e)
+      if (e instanceof Error) {
+        console.log(e.message)
+        setErrorMessage(e.message)
+      }
     }
   }
 
   return (
     <div className="min-h-screen grid place-items-center">
-      <section className="max-w-[560px] w-[90%]">
+      <section className="max-w-[450px] w-[90%]">
+        { errorMessage && (
+          <div className="mb-4 p-4 bg-red-100 text-red-800 rounded-lg">
+            {displayErrorMessage}
+          </div>
+        )}
         <form onSubmit={signin}>
-          <div className="relative z-0 w-full mb-6 group">
+          <div className="mb-6">
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              メールアドレス
+            </label>
             <input
               type="email"
               name="email"
               id="email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder=" "
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <label
-              htmlFor="email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Email address
-            </label>
           </div>
-          <div className="relative z-0 w-full mb-6 group">
+          <div className="relative z-0 w-full mb-6">
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              パスワード
+            </label>
             <input
               type="password"
               name="password"
               id="password"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder=" "
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <label
-              htmlFor="password"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Password
-            </label>
           </div>
 
           <button

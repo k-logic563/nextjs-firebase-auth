@@ -1,11 +1,3 @@
 # Next.js Firebase-Authentication
-Next.jsとFirebaseを使用した認証テンプレート
-
-## install
-`npm install`
-
-## start
-`npm run dev`
-
-## build
-`npm run build`
+Using Next.js and Firebase to create a simple authentication system.
+Client-side routing is handled by Next.js, and the Firebase SDK is used for authentication.
