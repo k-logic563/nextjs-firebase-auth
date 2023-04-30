@@ -1,13 +1,13 @@
-import React from 'react'
 import { useRouter } from 'next/router'
+import type { FC } from 'react'
 
-import * as api from '@/api'
+import { logout } from '@/features/auth'
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   const { push } = useRouter()
   const handleClickLogOut = async () => {
     try {
-      await api.auth.signOut()
+      await logout()
       await push('/signin')
     } catch (e) {
       console.log(e)

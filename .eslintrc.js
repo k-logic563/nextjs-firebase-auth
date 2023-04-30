@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true,
   },
   extends: [
     'eslint:recommended',
@@ -17,8 +18,30 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  plugins: ['react', '@typescript-eslint', 'tailwindcss', 'import', 'unused-imports'],
   rules: {
     'no-useless-escape': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'import/order': [
+      'warn',
+      {
+        'newlines-between': 'always',
+        'pathGroupsExcludedImportTypes': ['builtin'],
+        'alphabetize': { 'order': 'asc', 'caseInsensitive': true },
+        'pathGroups': [
+          {
+            'pattern': 'src/**',
+            'group': 'internal',
+            'position': 'before'
+          }
+        ]
+      }
+    ]
   },
 }

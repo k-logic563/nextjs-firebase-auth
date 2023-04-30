@@ -1,11 +1,17 @@
-import React from 'react'
 import { AppProps } from 'next/app'
 
-import '@/styles/global.css'
+import { AuthGuard, AuthProvider } from '@/features/auth'
+
 import '@/styles/index.css'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  return <Component {...pageProps} />
+  return (
+    <AuthProvider>
+      <AuthGuard>
+        <Component {...pageProps} />
+      </AuthGuard>
+    </AuthProvider>
+  )
 }
 
 export default MyApp
